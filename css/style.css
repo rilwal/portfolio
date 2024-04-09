@@ -54,6 +54,8 @@ body:not(.project-view) #content {
     width: 100vw;
     height: calc(max(720px, 60vh));
 
+    overflow: hidden;
+
     background-color: #9f9f9f;
 
     padding-left: 10em;
@@ -78,7 +80,9 @@ body:not(.project-view) #content {
 
 .me {
     border-radius: 1000px;
-    height: 60%;
+    max-height: 60%;
+    max-width: 60%;
+    aspect-ratio: 1/1;
     padding: 1em;
 }
 
@@ -101,7 +105,6 @@ body:not(.project-view) #content {
     background-color: #4C69FF;
 }
 
-
 .projects {
     display: flex;
     flex-wrap: wrap;
@@ -115,7 +118,7 @@ body:not(.project-view) #content {
     cursor: pointer;
 
     margin: 1em;
-    width: calc(50% - 2em);
+    width: calc(100% - 2em);
 
     aspect-ratio: 37 / 25;
 
@@ -153,6 +156,22 @@ body:not(.project-view) #content {
     margin-top: revert;
     margin-bottom: revert;
 }
+
+
+@media (max-width: 30cm) {
+    .projects {
+        width: 100vw;
+    }
+}
+
+@media (min-width: 30cm) {
+
+
+    .project {
+        width: calc(50% - 2em);
+    }
+}
+
 
 @media (min-width: 50cm) {
     .project {
