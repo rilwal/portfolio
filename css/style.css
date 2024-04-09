@@ -157,10 +157,18 @@ body:not(.project-view) #content {
     margin-bottom: revert;
 }
 
+figure.figure {
+    width: 50% !important;;
+}
 
 @media (max-width: 30cm) {
+    /* phones! */
     .projects {
         width: 100vw;
+    }
+
+    figure.figure {
+        width: 100% !important;;
     }
 }
 
