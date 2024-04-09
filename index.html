@@ -157,24 +157,29 @@
             }
 
 
-            const route = () => {
+            const route = (event) => {
+                console.log("route!");
+
                 const project_path_regex = /\/project\/([a-zA-Z0-9]*)/;
 
                 if (document.location.pathname == "/") {
                     go_home();
-                    event.preventDefault();
+
+                    if(event) event.preventDefault();
                 }
                 else if (project_path_regex.test(document.location.pathname)) {
                     let match = document.location.pathname.match(project_path_regex);
                     open_project(match[1], project_paths[match[1]], false)
+                    
+                    if(event) event.preventDefault();
                 }
             }
 
-            window.addEventListener("popstate", e => route);
+            window.addEventListener("popstate", route);
 
             history.scrollRestoration = "manual";
 
-            route();
+            route(null);
         })();
     </script>
 </body>
