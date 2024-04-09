@@ -156,7 +156,8 @@
                 }
             }
 
-            window.addEventListener("popstate", (event) => {
+
+            const route = () => {
                 const project_path_regex = /\/project\/([a-zA-Z0-9]*)/;
 
                 if (document.location.pathname == "/") {
@@ -167,9 +168,13 @@
                     let match = document.location.pathname.match(project_path_regex);
                     open_project(match[1], project_paths[match[1]], false)
                 }
-            });
+            }
+
+            window.addEventListener("popstate", e => route);
 
             history.scrollRestoration = "manual";
+
+            route();
         })();
     </script>
 </body>
