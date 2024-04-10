@@ -14,7 +14,7 @@
 </head>
 <body >
     <div class="alert alert-danger d-a m-0" role="alert">
-        This page is a work in progress!
+        This page is a work in progress!<br>
         このページは作成中です！
     </div>
     <!-- <div class="header" id="header">
@@ -97,6 +97,7 @@
             const home_page = content_container.innerHTML;
             
             let project_paths = {};
+            let scroll_points = [];
 
             // Yoinked from https://pqina.nl/blog/applying-styles-based-on-the-user-scroll-position-with-smart-css/
             const debounce = (fn) => {
@@ -114,15 +115,51 @@
             };
 
 
-            const scrollHandler = e => {
-                if(window.scrollY >= window.innerHeight) {
-                    header.classList.add("floating");
-                } else {
-                    header.classList.remove("floating");
+            const setup_scroll_points = () => {
+                let nav = document.getElementById("project-nav");
+
+                if (nav) {
+                    let nav_links = nav.getElementsByTagName("a");
+                    scroll_points = [];
+
+                    for (let i = 0; i < nav_links.length;i++) {
+                        let nav_link = nav_links[i];
+                        
+                        let element = document.querySelector(nav_link.attributes["href"].value);
+                        if (element) {
+                            console.log(nav_link.attributes["href"].value);
+                            console.log(window.scrollY);
+                            console.log(element.offsetTop);
+                            
+                            scroll_points.push({
+                                nav_element: nav_link,
+                                target: element,
+                                scrollPos: element.offsetTop
+                            });
+
+
+                        }
+
+                    }
+
                 }
+            }
+
+            const scrollHandler = e => {
+                // First of all, disable all our scroll points
+                console.log(window.scrollY);
+                for (let scroll_point of scroll_points) {
+                    console.log(scroll_point);
+                    scroll_point.nav_element.classList.remove("active");
+                }
+
+                let idx = 0;
+                while (idx < scroll_points.length && window.scrollY > scroll_points[idx].scrollPos) idx++;
+                console.log(idx);
+                scroll_points[idx-1].nav_element.classList.add("active");
             };
 
-            // document.addEventListener("scroll", scrollHandler, { passive: true });
+            document.addEventListener("scroll", scrollHandler, { passive: true });
 
             const open_project = (project_name, project_link, add_history=true) => {
                 console.log(project_name);
@@ -139,9 +176,12 @@
                     // TODO: figure out timing based on media loads?
                     window.setTimeout(() => {
                         content_container.style.height = `${content_container.scrollHeight}px`;
+                        setup_scroll_points();
+
                     }, 1000); 
 
                     document.body.classList.add("project-view");
+
                 });
             }
 
