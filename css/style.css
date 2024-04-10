@@ -13,24 +13,20 @@ body {
     overflow-x: hidden;
 }
 
-body.project-view #content{
-    transform:translate3d(0, 0, 0) scaley(1.0);
+
+body.project-view #moving-container {
+    transform: translate3d(-100vw, 0px, 0px);
 }
 
-body.project-view #projects {
-    transform:translate3d(-100vw, 0.01px, 0);
-}
-
-#projects {
-    transition: 1s cubic-bezier(0.65, 0, 0.35, 1)  transform;
+#moving-container {
+    transition: .5s cubic-bezier(0.65, 0, 0.35, 1)  transform;
 }
 
 #content {
     width: 100vw;
     position: absolute;
     top: 0px;
-    transform: translate3d(100vw, 0, 0);
-    transition: 1s cubic-bezier(0.65, 0, 0.35, 1)  transform, 1s linear  height;
+    left: 100vw;
     overflow: hidden;
 }
 
@@ -50,19 +46,8 @@ body:not(.project-view) #content {
 }
 
 .hero {
-    margin-bottom: 4em;
-    width: 100vw;
     height: calc(max(720px, 60vh));
-
     overflow: hidden;
-
-    background-color: #9f9f9f;
-
-    padding-left: 10em;
-
-    display: flex;
-    align-items: center;
-    flex-direction: row;
 
     background: linear-gradient(0deg, #1B2E70, #1B2E70),
         radial-gradient(67.38% 73.99% at 27.67% 32.62%, rgba(255, 58, 247, 0.6) 0%, rgba(27, 46, 112, 0.3) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
@@ -73,16 +58,12 @@ body:not(.project-view) #content {
     background-attachment: fixed;
 }
 
-.hero .leader {
-    color: white;
-    font-size: 5em;
-}
 
 .me {
     border-radius: 1000px;
     max-height: 60%;
     max-width: 60%;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1/1 !important;
     padding: 1em;
 }
 
@@ -169,6 +150,12 @@ figure.figure {
 
     figure.figure {
         width: calc(100% - 30px) !important;
+    }
+
+    .me {
+        max-height: 90%;
+        max-width: 90%;
+
     }
 }
 
