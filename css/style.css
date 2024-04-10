@@ -33,6 +33,10 @@ body:not(.project-view) #content {
     height: 0px !important;
 }
 
+body:not(.project-view) .side-nav {
+    display: none !important;
+}
+
 .side-nav {
     width: 160px;
     position:sticky;

@@ -40,7 +40,13 @@
                     <p class="fs-2" style="color: #eeeeee;">Programmer</p> 
                 </h1>
             </div>
+
         </div>
+        <div class="p-a l-20 row" style="margin-top:-4em; margin-left: 4em">
+            Web design: Helena Ip<br>
+            Web development: Jason Light
+        </div>
+
     </div>
 
     <!-- For absolute positioning -->
@@ -188,6 +194,7 @@
             const go_home = () => {
                 document.body.classList.remove("project-view");
                 content_container.style.height = "";
+                content_container.innerHTML = "";
             }
 
             // Add click handlers to projects
