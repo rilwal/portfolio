@@ -5,8 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Jason Light</title>
-
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost" >
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="/css/style.css">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -14,8 +19,8 @@
 </head>
 <body >
     <div class="alert alert-danger d-a m-0" role="alert">
-        This page is a work in progress!<br>
-        このページは作成中です！
+        <span lang="en">This page is a work in progress!</span>
+        <span lang="ja">このページは作成中です！</span>
     </div>
     <!-- <div class="header" id="header">
         <div class="left">
@@ -30,14 +35,23 @@
         </div>
     </div> -->
 
+    <span id="language-button">
+        <image src="/globe.svg"></image>
+    </span>
+
     <div class="hero container-responsive text-light">
         <div class="d-flex justify-content-center align-items-center flex-column flex-sm-row h-100">
             
             <img class="me" src="/img/rirekishophoto.webp" alt="Me">
             <div class="p-4 leader">
-                <h1 class="display-1">
+                <h1 class="display-1" lang="en">
                     Hi, I'm Jason!
                     <p class="fs-2" style="color: #eeeeee;">Programmer</p> 
+                </h1>
+
+                <h1 class="display-1" lang="ja">
+                    こんにちは、Jasonです&excl;
+                    <p class="fs-2" style="color: #eeeeee;">プログラマー</p> 
                 </h1>
             </div>
 
@@ -62,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="project" data-link="/projects/notris.html" data-name="notris">
+            <div class="project" data-link="/projects/notris" data-name="notris">
                 <img src="/img/notris.png" alt="" class="thumb">
                 <div class="tags">
                     <span class="tag"><p>Game</p></span>
@@ -101,7 +115,35 @@
             const projects = document.getElementsByClassName("project");
             const content_container = document.getElementById("content");
             const home_page = content_container.innerHTML;
-            
+            const language_button = document.getElementById("language-button");
+
+
+
+            // Do language detection
+            var user_lang = navigator.language || navigator.userLanguage; 
+            var language =  /*window.localStorage.getItem("language") ||*/ /ja/.test(user_lang) ? "ja" : "en";
+            console.log(language);
+
+            window.localStorage.setItem("language", language);
+
+            if (language == "ja") {
+                document.body.classList.add("ja");
+            }
+
+            const toggle_language = () => {
+                language = language == "en" ? "ja" : "en";
+                
+                if (language == "ja") {
+                    document.body.classList.add("ja");
+                } else {
+                    document.body.classList.remove("ja");
+
+                }
+            }
+
+            language_button.addEventListener("click", toggle_language);
+
+
             let project_paths = {};
             let scroll_points = [];
 
@@ -153,23 +195,32 @@
 
             const scrollHandler = e => {
                 // First of all, disable all our scroll points
-                console.log(window.scrollY);
                 for (let scroll_point of scroll_points) {
-                    console.log(scroll_point);
                     scroll_point.nav_element.classList.remove("active");
                 }
 
                 let idx = 0;
                 while (idx < scroll_points.length && window.scrollY > scroll_points[idx].scrollPos) idx++;
-                console.log(idx);
-                scroll_points[idx-1].nav_element.classList.add("active");
+
+                if (idx > 0 && idx < scroll_points.length) {
+                    scroll_points[idx-1].nav_element.classList.add("active");
+                }
             };
 
             document.addEventListener("scroll", scrollHandler, { passive: true });
 
-            const open_project = (project_name, project_link, add_history=true) => {
+            const open_project = (project_name, project_link, add_history=true, animate=true) => {
                 console.log(project_name);
                 console.log(project_link);
+
+                if (language == "ja") {
+                    project_link += "-ja";
+                }
+
+                if (animate) {
+                    document.body.classList.add("transition");
+                }
+                
 
                 fetch(project_link).then(response => {
                     return response.text();
@@ -178,12 +229,16 @@
                     
                     content_container.innerHTML = text;
 
+
+                    setTimeout(() => {
+                        document.body.classList.remove("transition");
+                    }, 1);
+
                     // This is a workaround so the height will include the height of any media elements
                     // TODO: figure out timing based on media loads?
                     window.setTimeout(() => {
                         content_container.style.height = `${content_container.scrollHeight}px`;
                         setup_scroll_points();
-
                     }, 1000); 
 
                     document.body.classList.add("project-view");
@@ -191,10 +246,15 @@
                 });
             }
 
-            const go_home = () => {
+            const go_home = (animate) => {
+                document.body.classList.add("transition");
                 document.body.classList.remove("project-view");
                 content_container.style.height = "";
                 content_container.innerHTML = "";
+
+                setTimeout(() => {
+                    document.body.classList.remove("transition");
+                }, 1);
             }
 
             // Add click handlers to projects
@@ -208,14 +268,12 @@
 
                     project_paths[project_name] = project_link;
 
-                    project.addEventListener("click", e => open_project(project_name, project_link));
+                    project.addEventListener("click", e => open_project(project_name, project_link, true));
                 }
             }
 
 
-            const route = (event) => {
-                console.log("route!");
-
+            const route = (animate) => {
                 const project_path_regex = /\/project\/([a-zA-Z0-9]*)/;
 
                 if (document.location.pathname == "/") {
@@ -225,17 +283,18 @@
                 }
                 else if (project_path_regex.test(document.location.pathname)) {
                     let match = document.location.pathname.match(project_path_regex);
-                    open_project(match[1], project_paths[match[1]], false)
-                    
-                    if(event) event.preventDefault();
+                    open_project(match[1], project_paths[match[1]], false, animate)
                 }
             }
 
-            window.addEventListener("popstate", route);
+            window.addEventListener("popstate", e => {
+                route(true);
+                e.preventDefault()
+            });
 
             history.scrollRestoration = "manual";
 
-            route(null);
+            route(null, false);
         })();
     </script>
 </body>

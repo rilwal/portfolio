@@ -4,6 +4,41 @@
     font-family: "Jost", Arial, Helvetica, sans-serif;
 }
 
+body.ja * {
+    font-family: "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body.ja [lang="en"] {
+    display: none;
+}
+
+body:not(.ja) [lang="ja"] {
+    display: none;
+}
+
+
+#language-button {
+    position:absolute;
+    right: 1em;
+    top: 1em;
+    background-color: #fefefe;
+    width: 3em;
+    height: 3em;
+    padding: calc(1.5em - 12px);
+    border-radius: 2em;
+
+    cursor: pointer;
+    box-shadow: 5px 5px 5px 5px#2b2b2b;
+}
+
+#language-button img {
+    vertical-align: baseline;
+}
+
+
 html {
     font-size: 20px;
 }
@@ -18,7 +53,7 @@ body.project-view #moving-container {
     transform: translate3d(-100vw, 0px, 0px);
 }
 
-#moving-container {
+body.transition #moving-container {
     transition: .5s cubic-bezier(0.65, 0, 0.35, 1)  transform;
 }
 
@@ -70,24 +105,6 @@ body:not(.project-view) .side-nav {
     padding: 1em;
 }
 
-
-.btn {
-    font-size: 28px;
-    background-color: #4E4E4E;
-    color: #ffffff;
-    cursor: pointer;
-
-    padding-top: .2em;
-    padding-bottom: .2em;
-    padding-left: 3em;
-    padding-right: 3em;
-
-    transition: .1s linear all;
-}
-
-.btn:hover {
-    background-color: #4C69FF;
-}
 
 .projects {
     display: flex;
@@ -242,67 +259,4 @@ figure.figure {
     opacity: 1;
     /* transform:scale(150%); */
 
-}
-
-.header {
-    z-index: 1000;
-    position: sticky;
-    top: 0;
-    padding-left: 100px;
-    padding-right: 100px;
-
-    padding-top: 1em;
-    padding-bottom: 1em;
-    background-color: #9f9f9f;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.header.floating {
-    background-color: rgba(159, 159, 159, .9);
-    box-shadow:  0px 5px 8px rgba(78,78,78,.6);
-}
-
-.navbar {
-    width: fit-content;
-    padding: 1em;
-    background-color: white;
-    border: 1px solid #4e4e4e;
-    border-radius: 100000px;
-}
-
-.navbar a:first-child {
-    margin-left: 0;
-}
-
-.navbar a:last-child {
-    margin-right: 0;
-}
-
-.navbar a {
-    font-size: 2em;
-    display:inline-block;
-    padding-left: 1em;
-    padding-right: 1em;
-
-    margin-left: 1em;
-    margin-right: 1em;
-    
-    padding-top: .5em;
-    padding-top: .5em;
-    padding-bottom: .5em;
-
-    text-decoration: none;
-
-    border-radius: 100000px;
-
-
-    color: #4e4e4e;
-}
-
-.navbar a.selected {
-    background: #4e4e4e;
-    color: white;
 }
