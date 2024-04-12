@@ -1,7 +1,0 @@
-{
-    "Name": "Notris",
-    "description": "This is a Tetris clone",
-    "image": "img/notris.png",
-    "category": "Game Programming",
-    "tags": ["C++", "Game Programming", "etc"]
-}

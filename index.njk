@@ -36,7 +36,7 @@
     </div> -->
 
     <span id="language-button">
-        <image src="/globe.svg"></image>
+        <img src="img/globe.svg" alt="lang">
     </span>
 
     <div class="hero container-responsive text-light">
@@ -67,37 +67,23 @@
     <div id="moving-container" style="position: relative; width: 100vw;"> 
 
         <div id="projects" class="projects">
-            <div class="project">
-                <img src="/img/project-1-thumb.png" alt="" class="thumb">
+            {%- for project in collections.project -%}
+            <div class="project" data-name="{{ project.data.slug }}">
+                <img src="{{ project.data.thumbnail }}" alt="" class="thumb">
 
                 <div class="popup">
-                    <h2 class="title">Project 1</h2>
-                    <span class="descriotion">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum beatae quas ea quaerat! Laudantium accusantium placeat molestiae, fuga itaque consequuntur dolor exercitationem sunt cumque quasi asperiores ipsum? Et, tempore ratione?</span>
+                    <h2 class="title">{{ project.data.title }}</h2>
+                    <span class="descriotion">{{ project.data.description}} </span>
                 </div>
-            </div>
 
-            <div class="project" data-link="/projects/notris" data-name="notris">
-                <img src="/img/notris.png" alt="" class="thumb">
                 <div class="tags">
-                    <span class="tag"><p>Game</p></span>
-                    <span class="tag"><p>C++</p></span>
+                    {%- for tag in project.data.categories %}
+                    <span class="tag"><p>{{ tag }}</p></span>
+                    {% endfor %}
                 </div>
 
-                <div class="popup">
-                    <h2 class="title">Notris</h2>
-                    <span class="descriotion">Notris is a falling block game made in a weekend.</span>
-                </div>
             </div>
-
-
-            <div class="project">
-                <img src="/img/renderer.png" alt="" class="thumb">
-
-                <div class="popup">
-                    <h2 class="title">Renderer</h2>
-                    <span class="descriotion">A 3D renderer I made with OpenGL.</span>
-                </div>
-            </div>
+            {%- endfor -%}
 
         </div>
 
@@ -209,9 +195,9 @@
 
             document.addEventListener("scroll", scrollHandler, { passive: true });
 
-            const open_project = (project_name, project_link, add_history=true, animate=true) => {
-                console.log(project_name);
-                console.log(project_link);
+            const open_project = (project_name, add_history=true, animate=true) => {
+                let project_link = `/projects/${project_name}`;
+
 
                 if (language == "ja") {
                     project_link += "-ja";
@@ -261,14 +247,9 @@
             for (let i = 0; i < projects.length; i++) {
                 let project = projects[i];
 
-                if ("data-link" in project.attributes) {
-                    console.log(project.attributes["data-link"]);
-                    let project_link = project.attributes["data-link"].value;
+                if ("data-name" in project.attributes) {
                     let project_name = project.attributes["data-name"].value;
-
-                    project_paths[project_name] = project_link;
-
-                    project.addEventListener("click", e => open_project(project_name, project_link, true));
+                    project.addEventListener("click", e => open_project(project_name, true));
                 }
             }
 
@@ -283,7 +264,7 @@
                 }
                 else if (project_path_regex.test(document.location.pathname)) {
                     let match = document.location.pathname.match(project_path_regex);
-                    open_project(match[1], project_paths[match[1]], false, animate)
+                    open_project(match[1], false, animate)
                 }
             }
 
