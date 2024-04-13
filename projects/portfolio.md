@@ -7,8 +7,8 @@ categories: ['WEB']
 thumbnail: /img/portfolio.png
 
 project_type: Web development
-credits: ['Design - Helena Ip', 'Programming - Jason Light']
-tools: HTML CSS JS 11ty
+credits: [{'what': 'Design', 'who': 'Helena Ip'}, {'what': 'Programming', 'who': 'Jason Light'}]
+tools: ['HTML', 'CSS', 'JS', '11ty']
 duration: 4 Weeks
 
 description: The portfolio you're currently browsing!

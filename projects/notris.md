@@ -7,8 +7,8 @@ categories: ['C++', 'Game']
 thumbnail: /img/notris.png
 
 project_type: Game Programming
-credits: Programming - Jason Light
-tools: C++ / SDL
+credits: [{'what': 'Programming', 'who': 'Jason Light'}]
+tools: ['C++', 'SDL']
 duration: 2 Weeks
 
 description: Notris is a Tetris-style falling block game made in C++ with the SDL library.

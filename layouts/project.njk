@@ -7,12 +7,6 @@
         <nav id="project-nav" class="nav nav-underline flex-column" >
         {{ content | toc | safe }}
         </nav>
-        <!-- <nav id="project-nav" class="nav nav-underline flex-column" >
-            <a class="nav-link active" aria-current="page" href="#challenge">The Challenge</a>
-            <a class="nav-link" href="#plan">The Plan</a>
-            <a class="nav-link" href="#checkpoint">Initial implementation</a>
-            <a class="nav-link" href="#visual">Visual overhaul</a>
-          </nav> -->
     </div>
     
     <h1 class="display-1">{{title}}</h1>
@@ -20,7 +14,7 @@
     <p class="lead">{{ description }}</p>
 
 
-    <div class="overflow-scroll w-100 d-block">
+    <div class="overflow-auto w-100 d-block">
         <table class="table table-borderless">
             <thead class="w-100">
                 <th>Project type</th>
@@ -30,8 +24,8 @@
             </thead>
             <tr>
                 <td>{{ project_type }}</td>
-                <td>{{ credits }}</td>
-                <td>{{ tools }}</td>
+                <td><ul>{% for credit in credits %} <li><strong>{{ credit.who }}:</strong> {{ credit.what }}</li> {% endfor %} </ul> </td>
+                <td><ul>{% for tool in tools %} <li>{{ tool }} {% endfor %}</ul> </td>
                 <td>{{ duration }}</td>
             </tr>
         </table>
