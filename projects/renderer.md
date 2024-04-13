@@ -3,7 +3,7 @@ title: Renderer
 slug: renderer
 layout: project
 tags: project
-thumbnail: /img/renderer.png
+thumbnail: /img/renderer.webp
 
 project_type: Grapghics Programming
 credits: [{'what': 'Programming', 'who': 'Jason Light'}]

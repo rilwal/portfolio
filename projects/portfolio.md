@@ -4,7 +4,7 @@ slug: portfolio
 layout: project
 tags: project
 categories: ['WEB']
-thumbnail: /img/portfolio.png
+thumbnail: /img/portfolio.webp
 
 project_type: Web development
 credits: [{'what': 'Design', 'who': 'Helena Ip'}, {'what': 'Programming', 'who': 'Jason Light'}]

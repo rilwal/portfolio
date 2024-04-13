@@ -9,8 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost" >
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Jost&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="/css/style.css">
     
@@ -104,10 +103,9 @@
             const language_button = document.getElementById("language-button");
 
 
-
             // Do language detection
             var user_lang = navigator.language || navigator.userLanguage; 
-            var language =  /*window.localStorage.getItem("language") ||*/ /ja/.test(user_lang) ? "ja" : "en";
+            var language =  window.localStorage.getItem("language") || (/ja/.test(user_lang) ? "ja" : "en");
             console.log(language);
 
             window.localStorage.setItem("language", language);
@@ -118,12 +116,12 @@
 
             const toggle_language = () => {
                 language = language == "en" ? "ja" : "en";
-                
+                window.localStorage.setItem("language", language);
+
                 if (language == "ja") {
                     document.body.classList.add("ja");
                 } else {
                     document.body.classList.remove("ja");
-
                 }
             }
 
@@ -189,12 +187,12 @@
                     if(!scroll_points[idx-1].nav_element.classList.contains("active")) {
 
                         // Deactivate all links
-                for (let scroll_point of scroll_points) {
-                    scroll_point.nav_element.classList.remove("active");
-                }
+                        for (let scroll_point of scroll_points) {
+                            scroll_point.nav_element.classList.remove("active");
+                        }
 
                         // Then activate this one
-                    scroll_points[idx-1].nav_element.classList.add("active");
+                        scroll_points[idx-1].nav_element.classList.add("active");
                     }
                     
                 }

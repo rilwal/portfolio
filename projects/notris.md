@@ -4,7 +4,7 @@ slug: notris
 layout: project
 tags: project
 categories: ['C++', 'Game']
-thumbnail: /img/notris.png
+thumbnail: /img/notris.webp
 
 project_type: Game Programming
 credits: [{'what': 'Programming', 'who': 'Jason Light'}]
