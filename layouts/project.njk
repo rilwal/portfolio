@@ -4,12 +4,15 @@
 
 <div class="container">
     <div class="side-nav">
-        <nav id="project-nav" class="nav nav-underline flex-column" >
+        <nav id="project-nav" class="nav">
+            <ul>
+            <li><a href="#overview">Overview</a>
+            </ul>
         {{ content | toc | safe }}
         </nav>
     </div>
     
-    <h1 class="display-1">{{title}}</h1>
+    <h1 class="display-1" id="overview">{{title}}</h1>
 
     <p class="lead">{{ description }}</p>
 

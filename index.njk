@@ -150,6 +150,7 @@
 
 
             const setup_scroll_points = () => {
+                console.log("Setup Scroll")
                 let nav = document.getElementById("project-nav");
 
                 if (nav) {
@@ -161,9 +162,6 @@
                         
                         let element = document.querySelector(nav_link.attributes["href"].value);
                         if (element) {
-                            console.log(nav_link.attributes["href"].value);
-                            console.log(window.scrollY);
-                            console.log(element.offsetTop);
                             
                             scroll_points.push({
                                 nav_element: nav_link,
@@ -180,16 +178,25 @@
             }
 
             const scrollHandler = e => {
-                // First of all, disable all our scroll points
+                console.log("SH");
+                const scroll_offset = -500;
+
+                let idx = 0;
+                while (idx < scroll_points.length && window.scrollY + scroll_offset > scroll_points[idx].scrollPos) idx++;
+
+                if (idx > 0 && idx < scroll_points.length) {
+                    // If we need to change the active link
+                    if(!scroll_points[idx-1].nav_element.classList.contains("active")) {
+
+                        // Deactivate all links
                 for (let scroll_point of scroll_points) {
                     scroll_point.nav_element.classList.remove("active");
                 }
 
-                let idx = 0;
-                while (idx < scroll_points.length && window.scrollY > scroll_points[idx].scrollPos) idx++;
-
-                if (idx > 0 && idx < scroll_points.length) {
+                        // Then activate this one
                     scroll_points[idx-1].nav_element.classList.add("active");
+                    }
+                    
                 }
             };
 
