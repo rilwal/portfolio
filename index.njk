@@ -21,18 +21,6 @@
         <span lang="en">This page is a work in progress!</span>
         <span lang="ja">このページは作成中です！</span>
     </div>
-    <!-- <div class="header" id="header">
-        <div class="left">
-            <span class="btn">Test Button</span>
-        </div>
-        <div class="right">
-            <nav class="navbar">
-                <a href="/" class="selected">Home</a>
-                <a href="">Work</a>
-                <a href="/about">About</a>
-            </nav>
-        </div>
-    </div> -->
 
     <span id="language-button">
         <img src="img/globe.svg" alt="lang">
@@ -102,6 +90,7 @@
             const home_page = content_container.innerHTML;
             const language_button = document.getElementById("language-button");
 
+            var current_url = document.location.pathname;
 
             // Do language detection
             var user_lang = navigator.language || navigator.userLanguage; 
@@ -148,7 +137,6 @@
 
 
             const setup_scroll_points = () => {
-                console.log("Setup Scroll")
                 let nav = document.getElementById("project-nav");
 
                 if (nav) {
@@ -176,9 +164,7 @@
             }
 
             const scrollHandler = e => {
-                console.log("SH");
                 const scroll_offset = -500;
-
                 let idx = 0;
                 while (idx < scroll_points.length && window.scrollY + scroll_offset > scroll_points[idx].scrollPos) idx++;
 
@@ -216,8 +202,13 @@
                 fetch(project_link).then(response => {
                     return response.text();
                 }).then(text => {
-                    if (add_history) history.pushState(project_name, "", `/project/${project_name}`);
-                    
+                    if (add_history) {
+                        let state = {"page": "project", "project": project_name};
+                        let url = `/project/${project_name}`;
+                        history.pushState(state, "", url);
+                        console.log(document.location);
+                        current_url = document.location.pathname;
+                    }
                     content_container.innerHTML = text;
 
 
@@ -260,6 +251,7 @@
 
 
             const route = (animate) => {
+                console.log("routing");
                 const project_path_regex = /\/project\/([a-zA-Z0-9]*)/;
 
                 if (document.location.pathname == "/") {
@@ -274,11 +266,19 @@
             }
 
             window.addEventListener("popstate", e => {
-                route(true);
+                console.log(document.location);
+                console.log(current_url);
+
+                if (document.location.pathname != current_url) {
+                    route(true);
+                }
+
+                current_url = document.location.pathname;
                 e.preventDefault()
             });
 
             history.scrollRestoration = "manual";
+
 
             route(null, false);
         })();
