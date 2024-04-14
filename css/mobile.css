@@ -1,0 +1,16 @@
+
+
+/* phones! */
+.projects {
+    width: 100vw;
+}
+
+figure {
+    width: 100% !important;
+}
+
+.container {
+    width: 100%;
+    padding-left: 1em;
+    padding-right: 1em;
+}

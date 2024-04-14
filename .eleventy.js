@@ -3,6 +3,7 @@ const htmlmin = require('html-minifier-terser');
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const pluginTOC = require('@uncenter/eleventy-plugin-toc');
+const CleanCSS = require("clean-css");
 
 module.exports = function (config) {
 
@@ -13,6 +14,10 @@ module.exports = function (config) {
     config.addTemplateFormats('css');
 
     config.addPassthroughCopy("img");
+
+    config.addFilter("cssmin", function(code) {
+        return new CleanCSS({}).minify(code).styles;
+      });
 
     config.addTransform('html-minify', (content, path) => {
         if (path && path.endsWith('.html')) {

@@ -3,8 +3,8 @@
 
 
 <div class="container">
-    <div class="side-nav">
-        <nav id="project-nav" class="nav">
+    <div class="outline">
+        <nav id="project-nav">
             <ul>
             <li><a href="#overview">Overview</a>
             </ul>
@@ -12,14 +12,15 @@
         </nav>
     </div>
     
+    <div class="project-content">
     <h1 class="display-1" id="overview">{{title}}</h1>
 
     <p class="lead">{{ description }}</p>
 
 
-    <div class="overflow-auto w-100 d-block">
+    <div class="project-overview">
         <table class="table table-borderless">
-            <thead class="w-100">
+            <thead>
                 <th>Project type</th>
                 <th>Credits</th>
                 <th>Tools</th>
@@ -36,4 +37,5 @@
 
     {{ content | safe }}
 
+    </div>
 </div>

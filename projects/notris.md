@@ -16,7 +16,7 @@ description: Notris is a Tetris-style falling block game made in C++ with the SD
 
 
 
-<figure class="figure mx-auto d-block" >
+<figure >
     <video class="figure-img img-fluid rounded center" playsinline autoplay="true" loop onclick="(e)=>{e}">
         <source src="/img/dt.webm" type="video/webm">
         <source src="/img/dt.mp4" type="video/mp4">
@@ -61,7 +61,7 @@ I'm a huge fan of Tetris, so I had a good idea of my requirements right from the
     During the first weekend, I managed to implement most of the basic features.
 
 
-<figure class="figure mx-auto d-block">
+<figure>
     <img  src="/img/notris-old.png" class="figure-img img-fluid rounded center " alt="">
     <figcaption class="figure-caption">The original version</figcaption>
 </figure>

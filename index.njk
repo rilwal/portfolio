@@ -6,44 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | Jason Light</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Jost&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    {% set css %}
+        {% include "css/critical.css" %}
+    {% endset %}
+
+    <style>
+        {{ css | cssmin | safe }}
+    </style>
+
+    <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'; this.onload=null;">
+    <link rel="stylesheet" href="/css/mobile.css" media="print" onload="this.media='(max-width: 20cm)'; this.onload=null;">
+    <link rel="stylesheet"  href="/css/desktop.css" media="print" onload="this.media='all'; this.onload=null;">
 
 </head>
 <body >
-    <div class="alert alert-danger d-a m-0" role="alert">
+    <div class="alert" role="alert">
         <span lang="en">This page is a work in progress!</span>
         <span lang="ja">このページは作成中です！</span>
     </div>
 
     <span id="language-button">
-        <img src="img/globe.svg" alt="lang">
+        <img src="img/globe.svg" alt="lang" width=24 height=24>
     </span>
 
-    <div class="hero container-responsive text-light">
-        <div class="d-flex justify-content-center align-items-center flex-column flex-sm-row h-100">
+    <div class="hero">
             
-            <img class="me" src="/img/rirekishophoto.webp" alt="Me">
-            <div class="p-4 leader">
-                <h1 class="display-1" lang="en">
-                    Hi, I'm Jason!
-                    <p class="fs-2" style="color: #eeeeee;">Programmer</p> 
-                </h1>
+        <img class="me" src="/img/rirekishophoto.webp" alt="Me">
 
-                <h1 class="display-1" lang="ja">
-                    こんにちは、Jasonです&excl;
-                    <p class="fs-2" style="color: #eeeeee;">プログラマー</p> 
-                </h1>
-            </div>
+        <div class="leader">
+            <h1 class="display-1" lang="en">
+                Hi, I'm Jason!
+                <span class="subtitle" style="color: #eeeeee;">Programmer</span> 
+            </h1>
 
+            <h1 class="display-1" lang="ja">
+                こんにちは、Jasonです&excl;
+                <span class="subtitle" style="color: #eeeeee;">プログラマー</span> 
+            </h1>
         </div>
-        <div class="p-a l-20 row" style="margin-top:-4em; margin-left: 4em">
+
+        <div class="credits">
             Web design: Helena Ip<br>
             Web development: Jason Light
         </div>
@@ -52,7 +54,6 @@
 
     <!-- For absolute positioning -->
     <div id="moving-container" style="position: relative; width: 100vw;"> 
-
         <div id="projects" class="projects">
             {%- for project in collections.project -%}
             <div class="project" data-name="{{ project.data.slug }}">
@@ -68,7 +69,6 @@
                     <span class="tag"><p>{{ tag }}</p></span>
                     {% endfor %}
                 </div>
-
             </div>
             {%- endfor -%}
 
@@ -91,6 +91,11 @@
             const language_button = document.getElementById("language-button");
 
             var current_url = document.location.pathname;
+            var mobile = false;
+
+            if (window.innerWidth < 960) {
+                mobile = true;
+            }
 
             // Do language detection
             var user_lang = navigator.language || navigator.userLanguage; 
@@ -136,7 +141,12 @@
             };
 
 
+            var _active_scroll_stop = -1;
+            var _scrollspy_available = false;
+            var _scrollspy_active = false;
+
             const setup_scroll_points = () => {
+                _active_scroll_stop = -1;
                 let nav = document.getElementById("project-nav");
 
                 if (nav) {
@@ -160,17 +170,23 @@
 
                     }
 
+                    if (nav_links.length) {
+                        _scrollspy_available = true;
+                        if (!mobile) _scrollspy_active = true;
+                    }
+
                 }
             }
 
+
             const scrollHandler = e => {
                 const scroll_offset = -500;
-                let idx = 0;
-                while (idx < scroll_points.length && window.scrollY + scroll_offset > scroll_points[idx].scrollPos) idx++;
 
-                if (idx > 0 && idx < scroll_points.length) {
-                    // If we need to change the active link
-                    if(!scroll_points[idx-1].nav_element.classList.contains("active")) {
+                if (_scrollspy_active) {
+                    let idx = 0;
+                    while (idx < scroll_points.length && window.scrollY + scroll_offset > scroll_points[idx].scrollPos) idx++;
+
+                    if (idx - 1 != _active_scroll_stop && idx > 0 && idx < scroll_points.length) {
 
                         // Deactivate all links
                         for (let scroll_point of scroll_points) {
@@ -179,14 +195,28 @@
 
                         // Then activate this one
                         scroll_points[idx-1].nav_element.classList.add("active");
+                        
+                        _active_scroll_stop = idx - 1
+                        
                     }
-                    
                 }
             };
 
-            document.addEventListener("scroll", scrollHandler, { passive: true });
+            document.addEventListener("scroll", debounce(scrollHandler), { passive: true });
+
+            window.addEventListener("resize", e => {
+                if (window.innerWidth < 960) {
+                    mobile = true;
+                    _scrollspy_active = false;
+                }
+                else {
+                    mobile = false;
+                    _scrollspy_active = _scrollspy_available;
+                }
+            })
 
             const open_project = (project_name, add_history=true, animate=true) => {
+                console.log(`Opening Project ${project_name}`)
                 let project_link = `/projects/${project_name}`;
 
 
@@ -194,14 +224,11 @@
                     project_link += "-ja";
                 }
 
-                if (animate) {
-                    document.body.classList.add("transition");
-                }
-                
-
                 fetch(project_link).then(response => {
                     return response.text();
                 }).then(text => {
+                    content_container.innerHTML = text;
+
                     if (add_history) {
                         let state = {"page": "project", "project": project_name};
                         let url = `/project/${project_name}`;
@@ -209,12 +236,14 @@
                         console.log(document.location);
                         current_url = document.location.pathname;
                     }
-                    content_container.innerHTML = text;
 
+                    if (animate) {
+                        document.body.classList.add("transition");
+                    }
 
                     setTimeout(() => {
                         document.body.classList.remove("transition");
-                    }, 1);
+                    }, 500);
 
                     // This is a workaround so the height will include the height of any media elements
                     // TODO: figure out timing based on media loads?
@@ -234,9 +263,12 @@
                 content_container.style.height = "";
                 content_container.innerHTML = "";
 
+                _scrollspy_available = false;
+                _scrollspy_active = false;
+
                 setTimeout(() => {
                     document.body.classList.remove("transition");
-                }, 1);
+                }, 500);
             }
 
             // Add click handlers to projects
@@ -255,7 +287,7 @@
                 const project_path_regex = /\/project\/([a-zA-Z0-9]*)/;
 
                 if (document.location.pathname == "/") {
-                    go_home();
+                    go_home(animate);
 
                     if(event) event.preventDefault();
                 }
