@@ -243,11 +243,15 @@
 
                     setTimeout(() => {
                         document.body.classList.remove("transition");
+                        if (window.location.hash) {
+                            window.scrollTo(document.getElementById(window.location.hash.substr(1)).offsetTop);
+                        }
                     }, 500);
 
                     // This is a workaround so the height will include the height of any media elements
                     // TODO: figure out timing based on media loads?
                     window.setTimeout(() => {
+
                         content_container.style.height = `${content_container.scrollHeight}px`;
                         setup_scroll_points();
                     }, 1000); 
@@ -298,6 +302,8 @@
             }
 
             window.addEventListener("popstate", e => {
+                e.preventDefault()
+
                 console.log(document.location);
                 console.log(current_url);
 
@@ -306,7 +312,6 @@
                 }
 
                 current_url = document.location.pathname;
-                e.preventDefault()
             });
 
             history.scrollRestoration = "manual";
