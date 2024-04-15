@@ -196,11 +196,16 @@ body {
 .credits {
     position: absolute;
     bottom: 1em;
-    left: 1em;
+    right: 1em;
 }
 
 /* Smaller than 15cm is probably a phone! */
 @media (max-width: 20cm) {
+    .credits {
+        left: 1em;
+        right: unset;
+    }
+    
     .hero {
         /* leave space for the credits!! */
         min-height: calc(80vw + 144px + 120px);
