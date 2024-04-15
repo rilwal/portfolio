@@ -4,8 +4,8 @@
     margin: auto;
     display: flex;
     gap: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .project-content {
@@ -14,7 +14,7 @@
 
 @media (max-width: 960px) {
     .project-content {
-        width: calc(100vw - 2em); 
+        width: calc(100vw - 200px); 
     }
 }
 
@@ -24,7 +24,7 @@
     }
 }
 
-@media (min-width: calc(1280px + 300px)) {
+@media (min-width: calc(1280px + 500px)) {
     .project-content { 
         width: 1280px;
     }
