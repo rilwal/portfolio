@@ -67,6 +67,9 @@ body:not(.ja) [lang="ja"] {
     background-attachment: fixed;
 
     color: white;
+
+    height: 60vh;
+    min-height: 25em;
 }
 
 .display-1 {
@@ -124,10 +127,12 @@ body {
 
 .me {
     border-radius: 1000px;
-    max-height: 60%;
-    max-width: 60%;
+    max-height: 75%;
+    max-width: 75%;
     aspect-ratio: 1/1 !important;
     padding: 1em;
+
+    margin-right: 4em;
 }
 
 
@@ -216,6 +221,7 @@ body {
 
     .me {
         max-width: 80%;
+        margin-right: unset;
     }
 
 
