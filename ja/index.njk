@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | {{ me.name }}</title>
+    
+    {% set critical_css %}
+        {% include "css/critical.css" %}
+    {% endset %}
+
+    <style>
+        {{ critical_css | cssmin | safe }}
+    </style>
+
+    <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'; this.onload=null;">
+    <link rel="stylesheet" href="/css/mobile.css" media="print" onload="this.media='(max-width: 20cm)'; this.onload=null;">
+    <link rel="stylesheet"  href="/css/desktop.css" media="print" onload="this.media='(min-width: 20cm)'; this.onload=null;">
+
+</head>
+<body >
+    <div class="alert" role="alert">
+        <span>このページは作成中です！</span>
+    </div>
+
+    <span id="language-button">
+        <img src="/img/globe.svg" alt="lang" width=24 height=24>
+    </span>
+
+    <div class="hero">
+            
+        <img class="me" src="/img/rirekishophoto.webp" alt="Me">
+
+        <div class="leader">
+
+
+            <h1 class="display-1">
+                こんにちは<span class="desktop">、</span><br class="mobile">Jasonです&excl;
+                <span class="subtitle" style="color: #eeeeee;">プログラマー</span> 
+            </h1>
+        </div>
+
+        <div class="credits">
+            Web design: Helena Ip<br>
+            Web development: Jason Light
+        </div>
+
+    </div>
+
+    <!-- For absolute positioning -->
+    <div id="moving-container" style="position: relative; width: 100vw;"> 
+        <div id="projects" class="projects">
+            {%- for project in collections.project -%}
+            <div class="project" data-name="{{ project.data.slug }}" data-url="{{ project.url | locale_url }}">
+                <img src="{{ project.data.thumbnail }}" alt="" class="thumb">
+
+                <div class="popup">
+                    <h2 class="title">{{ project.data.title }}</h2>
+                    <span class="descriotion">{{ project.data.description}} </span>
+                </div>
+
+                <div class="tags">
+                    {%- for tag in project.data.categories %}
+                    <span class="tag"><p>{{ tag }}</p></span>
+                    {% endfor %}
+                </div>
+            </div>
+            {%- endfor -%}
+
+        </div>
+
+        <div id="content" style="width: 100%">
+
+
+        </div>
+
+    </div>
+
+    <script>
+        (function() {
+            "use strict";
+            const header = document.getElementById("header");
+            const projects = document.getElementsByClassName("project");
+            const content_container = document.getElementById("content");
+            const home_page = content_container.innerHTML;
+
+            var current_url = document.location.pathname;
+            var mobile = false;
+
+            if (window.innerWidth < 960) {
+                mobile = true;
+            }
+
+            let project_paths = {};
+            let scroll_points = [];
+
+            // Yoinked from https://pqina.nl/blog/applying-styles-based-on-the-user-scroll-position-with-smart-css/
+            const debounce = (fn) => {
+                let frame;
+
+                return (...params) => {
+                    if (frame) { 
+                        cancelAnimationFrame(frame);
+                    }
+
+                    frame = requestAnimationFrame(() => {
+                        fn(...params);
+                    });
+                } 
+            };
+
+
+            var _active_scroll_stop = -1;
+            var _scrollspy_available = false;
+            var _scrollspy_active = false;
+
+            const setup_scroll_points = () => {
+                _active_scroll_stop = -1;
+                let nav = document.getElementById("project-nav");
+
+                if (nav) {
+                    let nav_links = nav.getElementsByTagName("a");
+                    scroll_points = [];
+
+                    for (let i = 0; i < nav_links.length;i++) {
+                        let nav_link = nav_links[i];
+                        
+                        let element = document.querySelector(nav_link.attributes["href"].value);
+                        if (element) {
+                            
+                            scroll_points.push({
+                                nav_element: nav_link,
+                                target: element,
+                                scrollPos: element.offsetTop
+                            });
+
+
+                        }
+
+                    }
+
+                    if (nav_links.length) {
+                        _scrollspy_available = true;
+                        if (!mobile) _scrollspy_active = true;
+                    }
+
+                }
+            }
+
+
+            const scrollHandler = e => {
+                const scroll_offset = -500;
+
+                if (_scrollspy_active) {
+                    let idx = 0;
+                    while (idx < scroll_points.length && window.scrollY + scroll_offset > scroll_points[idx].scrollPos) idx++;
+
+                    if (idx - 1 != _active_scroll_stop && idx > 0 && idx < scroll_points.length) {
+
+                        // Deactivate all links
+                        for (let scroll_point of scroll_points) {
+                            scroll_point.nav_element.classList.remove("active");
+                        }
+
+                        // Then activate this one
+                        scroll_points[idx-1].nav_element.classList.add("active");
+                        
+                        _active_scroll_stop = idx - 1
+                        
+                    }
+                }
+            };
+
+            document.addEventListener("scroll", debounce(scrollHandler), { passive: true });
+
+            window.addEventListener("resize", e => {
+                if (window.innerWidth < 960) {
+                    mobile = true;
+                    _scrollspy_active = false;
+                }
+                else {
+                    mobile = false;
+                    _scrollspy_active = _scrollspy_available;
+                }
+            });
+
+            const open_project = (project_name, add_history=true, animate=true) => {
+                console.log(`Opening Project ${project_name}`)
+                let project_link = `/projects/${project_name}`;
+
+
+                if (language == "ja") {
+                    project_link += "-ja";
+                }
+
+                fetch(project_link).then(response => {
+                    return response.text();
+                }).then(text => {
+                    content_container.innerHTML = text;
+
+                    if (add_history) {
+                        let state = {"page": "project", "project": project_name};
+                        let url = `/project/${project_name}`;
+                        history.pushState(state, "", url);
+                        console.log(document.location);
+                        current_url = document.location.pathname;
+                    }
+
+                    if (animate) {
+                        document.body.classList.add("transition");
+                    }
+
+                    setTimeout(() => {
+                        document.body.classList.remove("transition");
+                        if (window.location.hash) {
+                            window.scrollTo(document.getElementById(window.location.hash.substr(1)).offsetTop);
+                        }
+                    }, 500);
+
+                    // This is a workaround so the height will include the height of any media elements
+                    // TODO: figure out timing based on media loads?
+                    window.setTimeout(() => {
+
+                        content_container.style.height = `${content_container.scrollHeight}px`;
+                        setup_scroll_points();
+                    }, 1000); 
+
+                    document.body.classList.add("project-view");
+
+                });
+            }
+
+            const go_home = (animate) => {
+                document.body.classList.add("transition");
+                document.body.classList.remove("project-view");
+                content_container.style.height = "";
+                content_container.innerHTML = "";
+
+                _scrollspy_available = false;
+                _scrollspy_active = false;
+
+                setTimeout(() => {
+                    document.body.classList.remove("transition");
+                }, 500);
+            }
+
+            // Add click handlers to projects
+            for (let i = 0; i < projects.length; i++) {
+                let project = projects[i];
+
+                if ("data-name" in project.attributes) {
+                    let project_name = project.attributes["data-name"].value;
+                    project.addEventListener("click", e => open_project(project_name, true));
+                }
+            }
+
+
+            const route = (animate) => {
+                console.log("routing");
+                const project_path_regex = /\/project\/([a-zA-Z0-9]*)/;
+
+                if (document.location.pathname == "/") {
+                    go_home(animate);
+
+                    if(event) event.preventDefault();
+                }
+                else if (project_path_regex.test(document.location.pathname)) {
+                    let match = document.location.pathname.match(project_path_regex);
+                    open_project(match[1], false, animate)
+                }
+            }
+
+            window.addEventListener("popstate", e => {
+                e.preventDefault()
+
+                console.log(document.location);
+                console.log(current_url);
+
+                if (document.location.pathname != current_url) {
+                    route(true);
+                }
+
+                current_url = document.location.pathname;
+            });
+
+            history.scrollRestoration = "manual";
+
+
+            route(null, false);
+        })();
+    </script>
+</body>
+</html>

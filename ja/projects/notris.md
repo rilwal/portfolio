@@ -1,5 +1,5 @@
 ---
-title: Notris
+title: ノットリス
 slug: notris
 layout: project
 tags: project
@@ -11,11 +11,11 @@ credits: [{'what': 'Programming', 'who': 'Jason Light'}]
 tools: ['C++', 'SDL']
 duration: 2 Weeks
 
-description: Notris is a Tetris-style falling block game made in C++ with the SDL library.
+description: Notris in Japanese.
 ---
 
-## English version
-sdfsdfsdfsdfsdf'
+## Japanese version
+asdasd
 
 <figure >
     <video class="figure-img img-fluid rounded center" playsinline autoplay="true" loop onclick="(e)=>{e}">

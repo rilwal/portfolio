@@ -4,8 +4,15 @@ const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const pluginTOC = require('@uncenter/eleventy-plugin-toc');
 const CleanCSS = require("clean-css");
+const { EleventyI18nPlugin } = require("@11ty/eleventy");
 
 module.exports = function (config) {
+
+    config.addPlugin(EleventyI18nPlugin, {
+		// any valid BCP 47-compatible language tag is supported
+		defaultLanguage: "en", // Required, this site uses "en"
+        errorMode: "allow-fallback", 
+	});
 
     config.addPlugin(pluginTOC, {wrapper: e => e, ul: true});
 
