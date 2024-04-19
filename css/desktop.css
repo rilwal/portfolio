@@ -8,6 +8,7 @@
     padding-right: 100px;
 }
 
+
 .project-content {
     width: 960px;
 }
@@ -41,11 +42,3 @@ figure {
     width: 50%;
 }
 
-figure img,
-figure video {
-    border-radius: 4px;
-}
-
-figure figcaption {
-    color: #6c757d;
-}

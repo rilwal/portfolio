@@ -143,3 +143,13 @@ table td ul {
     transform: translateX(-1em) ;
     font-weight: 600;
 }
+
+
+figure img,
+figure video {
+    border-radius: 6px;
+}
+
+figure figcaption {
+    color: #6c757d;
+}

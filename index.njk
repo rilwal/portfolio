@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Jason Light</title>
+    <title>Portfolio | {{ me.name }}</title>
     
     {% set critical_css %}
         {% include "css/critical.css" %}
@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'; this.onload=null;">
     <link rel="stylesheet" href="/css/mobile.css" media="print" onload="this.media='(max-width: 20cm)'; this.onload=null;">
-    <link rel="stylesheet"  href="/css/desktop.css" media="print" onload="this.media='all'; this.onload=null;">
+    <link rel="stylesheet"  href="/css/desktop.css" media="print" onload="this.media='(min-width: 20cm)'; this.onload=null;">
 
 </head>
 <body >
@@ -35,12 +35,12 @@
 
         <div class="leader">
             <h1 class="display-1" lang="en">
-                Hi, I'm Jason!
-                <span class="subtitle" style="color: #eeeeee;">Programmer</span> 
+                Hi, I'm {{ me.name }}!
+                <span class="subtitle" style="color: #eeeeee;">{{ me.job }}</span> 
             </h1>
 
             <h1 class="display-1" lang="ja">
-                こんにちは、Jasonです&excl;
+                こんにちは<span class="desktop">、</span><br class="mobile">Jasonです&excl;
                 <span class="subtitle" style="color: #eeeeee;">プログラマー</span> 
             </h1>
         </div>

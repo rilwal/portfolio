@@ -1,7 +1,7 @@
 /* This file should contain CSS that is critical for the page load. */
 
 :root {
-    --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --system-ui: system-ui, "Meiryo UI", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 /* reset CSS from https://www.joshwcomeau.com/css/custom-css-reset/ */
@@ -79,7 +79,8 @@ body:not(.ja) [lang="ja"] {
 
 .subtitle {
     display: block;
-    font-size: .6em !important; 
+    font-size: .7em !important; 
+    padding-top: .2em;
 }
 
 
@@ -209,6 +210,7 @@ body {
     .credits {
         left: 1em;
         right: unset;
+        font-size: .75em;
     }
     
     .hero {
@@ -217,6 +219,8 @@ body {
 
         flex-direction: column;
         justify-content: flex-start;
+
+
     }
 
     .me {
@@ -226,7 +230,10 @@ body {
 
 
     .display-1 {
+        text-align: center;
+        
         font-size: 3em;
+        line-height: 1em;
     }
 
     .hero .leader {
@@ -237,23 +244,30 @@ body {
         width: 100vw;
     }
     
+    .desktop {
+        display: none;
+    }
 }
 
-@media (min-width: 30cm) {
+@media (min-width: 20cm) {
+    .mobile {
+        display: none;
+    }
+    
     .project {
         width: calc(50% - 2em);
     }
 }
 
 
-@media (min-width: 50cm) {
+@media (min-width: 40cm) {
     .project {
         width: calc(33% - 2em);
     }
 }
 
 
-@media (min-width: 80cm) {
+@media (min-width: 50cm) {
     .project {
         width: calc(25% - 2em);
     }
