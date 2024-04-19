@@ -228,10 +228,10 @@ body {
         margin-right: unset;
     }
 
-
-    .display-1 {
+    
+    .hero .display-1 {
         text-align: center;
-        
+
         font-size: 3em;
         line-height: 1em;
     }
