@@ -206,7 +206,7 @@ body {
 }
 
 /* Smaller than 15cm is probably a phone! */
-@media (max-width: 20cm) {
+@media (max-width: 1000px) {
     .credits {
         left: 1em;
         right: unset;
@@ -215,7 +215,7 @@ body {
     
     .hero {
         /* leave space for the credits!! */
-        min-height: calc(80vw + 144px + 120px);
+        min-height: calc(60vw + 144px + 100px);
 
         flex-direction: column;
         justify-content: flex-start;
@@ -224,7 +224,7 @@ body {
     }
 
     .me {
-        max-width: 80%;
+        max-width: 60vw;
         margin-right: unset;
     }
 

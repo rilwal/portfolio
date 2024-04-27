@@ -1,6 +1,10 @@
 
 
 
+.project {
+    transition: 1s linear position;
+}
+
 p {
     margin-bottom: .5em;
 }
@@ -111,17 +115,7 @@ table td ul {
 
 /* On screens narrower than 1600px let's put a static nav at the top */
 
-.outline {
-    width: 300px;
-    margin-top: 120px;
-}
 
-.outline nav {
-    position:sticky;
-    height: auto;
-
-    top: 120px;
-}
 
 
 

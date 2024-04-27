@@ -3,15 +3,7 @@
 
 
 <div class="container">
-    <div class="outline">
-        <h2 class="mobile-only">Table of Contents</h2>
-        <nav id="project-nav">
-            <ul>
-            <li><a href="#overview">Overview</a>
-            </ul>
-        {{ content | toc | safe }}
-        </nav>
-    </div>
+
     
     <div class="project-content">
     <h1 class="display-1" id="overview">{{title}}</h1>
@@ -23,7 +15,7 @@
     <div class="project-overview">
         <table class="table table-borderless">
             <thead>
-                <th>Project type</th>
+                <th>{{ project_type_str }}</th>
                 <th>Credits</th>
                 <th>Tools</th>
                 <th>Duration</th>
@@ -35,6 +27,16 @@
                 <td>{{ duration }}</td>
             </tr>
         </table>
+    </div>
+
+    <div class="outline">
+        <h2 class="mobile-only">Table of Contents</h2>
+        <nav id="project-nav">
+            <ul>
+            <li><a href="#overview">Overview</a>
+            </ul>
+        {{ content | toc | safe }}
+        </nav>
     </div>
 
     {{ content | safe }}

@@ -15,8 +15,8 @@
     </style>
 
     <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all'; this.onload=null;">
-    <link rel="stylesheet" href="/css/mobile.css" media="print" onload="this.media='(max-width: 20cm)'; this.onload=null;">
-    <link rel="stylesheet"  href="/css/desktop.css" media="print" onload="this.media='(min-width: 20cm)'; this.onload=null;">
+    <link rel="stylesheet" href="/css/mobile.css" media="print" onload="this.media='(max-width: 1000px)'; this.onload=null;">
+    <link rel="stylesheet"  href="/css/desktop.css" media="print" onload="this.media='(min-width: 1000px)'; this.onload=null;">
 
 </head>
 <body >
@@ -56,7 +56,7 @@
     <div id="moving-container" style="position: relative; width: 100vw;"> 
         <div id="projects" class="projects">
             {%- for project in collections.project -%}
-            <div class="project" data-name="{{ project.data.slug }}">
+            <div class="project" data-name="{{ project.data.slug }}" lang="{{project.data.lang}}">
                 <img src="{{ project.data.thumbnail }}" alt="" class="thumb">
 
                 <div class="popup">
@@ -213,16 +213,11 @@
                     mobile = false;
                     _scrollspy_active = _scrollspy_available;
                 }
-            })
+            });
 
             const open_project = (project_name, add_history=true, animate=true) => {
                 console.log(`Opening Project ${project_name}`)
-                let project_link = `/projects/${project_name}`;
-
-
-                if (language == "ja") {
-                    project_link += "-ja";
-                }
+                let project_link = `/${language}/projects/${project_name}`;
 
                 fetch(project_link).then(response => {
                     return response.text();
