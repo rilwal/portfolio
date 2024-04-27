@@ -16,13 +16,13 @@
         <table class="table table-borderless">
             <thead>
                 <th>{{ project_type_str }}</th>
-                <th>Credits</th>
-                <th>Tools</th>
-                <th>Duration</th>
+                <th>{{ credits_str }}</th>
+                <th>{{ tools_str }}</th>
+                <th>{{ duration_str }}</th>
             </thead>
             <tr>
                 <td>{{ project_type }}</td>
-                <td><ul>{% for credit in credits %} <li><strong>{{ credit.who }}:</strong> {{ credit.what }}</li> {% endfor %} </ul> </td>
+                <td><ul>{% for credit in credits %} <li><strong>{{ credit.what }}:</strong> {{ credit.who }}</li> {% endfor %} </ul> </td>
                 <td><ul>{% for tool in tools %} <li>{{ tool }} {% endfor %}</ul> </td>
                 <td>{{ duration }}</td>
             </tr>

@@ -14,9 +14,6 @@ duration: 2 Weeks
 description: Notris is a Tetris-style falling block game made in C++ with the SDL library.
 ---
 
-## English version
-sdfsdfsdfsdfsdf'
-
 <figure >
     <video class="figure-img img-fluid rounded center" playsinline autoplay="true" loop onclick="(e)=>{e}">
         <source src="/img/dt.webm" type="video/webm">

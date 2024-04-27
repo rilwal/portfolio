@@ -1,4 +1,10 @@
 {
     "lang": "ja",
-    "project_type_str": "プロジェクト種類"
+
+    "toc_str": "目次",
+
+    "project_type_str": "プロジェクト種類",
+    "credits_str": "クレジット",
+    "tools_str": "ツール",
+    "duration_str": "期間"
 }

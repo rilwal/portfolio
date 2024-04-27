@@ -1,21 +1,18 @@
 ---
-title: ノットリス
+title: Notris
 slug: notris
 layout: project
 tags: project
 categories: ['C++', 'Game']
 thumbnail: /img/notris.webp
 
-project_type: Game Programming
-credits: [{'what': 'Programming', 'who': 'Jason Light'}]
+project_type: ゲーム開発
+credits: [{'what': 'プログラマー', 'who': 'Jason Light'}]
 tools: ['C++', 'SDL']
-duration: 2 Weeks
+duration: 2週間
 
-description: Notris in Japanese.
+description: NotrisはC++とSDLを使用して開発したTetrisの
 ---
-
-## Japanese version
-asdasd
 
 <figure >
     <video class="figure-img img-fluid rounded center" playsinline autoplay="true" loop onclick="(e)=>{e}">
@@ -26,46 +23,35 @@ asdasd
 </figure>
 
 
-## The Challenge
-            
-I decided to challenge myself to make a falling block game similar to Tetris® using only C++ and SDL. I chose C++ because it is the language most commonly used in the video games industry, because I am familiar with it,
-and because I enjoy working with it. I chose SDL because I feel like the abstractions it provides are enough to avoid some of the fiddliness of writing cross-platform code, but still doesn't get in the way or do too much for you.
-                        
-My initial goal was simple: to create a functional Tetris style game in a weekend.
-            
+## チャレンジ
 
-## The Plan
+私は自分自身に、C++ と SDL のみを使用して、Tetris® に似た落ちるブロックゲームを作る挑戦をすることに決めました。私は、それがビデオゲーム業界で最も一般的に使用されている言語であり、私がそれに精通しているため、そしてそれで作業することが楽しいため、C++ を選びました。SDL を選んだ理由は、提供される抽象化がクロスプラットフォームのコードを書く際の一部の面倒さを避けるのに十分だと感じたからですが、それでも邪魔にならず、あまり多くを行いすぎません。
 
-I'm a huge fan of Tetris, so I had a good idea of my requirements right from the start. I wanted more or less these features:        
+最初の目標は単純でした: 週末に機能的なテトリススタイルのゲームを作成することです。
 
+## 計画
 
+私はテトリスの大ファンなので、最初から私の要件をかなり良く理解していました。私がほぼこれらの機能を望んでいたのは次のとおりです:
 
-* Basic Tetris functionality
+* 基本的なテトリスの機能
+    + 10x20 のボード
+    + ピースの左右への移動
+    + ピースの回転
+    + ピースを引き下ろす重力
+    + [ソフトドロップ](https://harddrop.com/wiki/Drop#Soft_drop)
+    + [ハードドロップ](https://harddrop.com/wiki/Drop#Hard_drop)
+* [SRS](https://harddrop.com/wiki/SRS) スタイルの回転
+* [ランダムバッグ](https://harddrop.com/wiki/Random_Generator)ベースのピースのランダム化
+* ホールドピース
+* ゴーストピース
+* スコアリングシステム
+* レベルシステム（時間とともに難易度が上がる）
 
-    + 10x20 board
-    + Movement of pieces from left to right
-    + Rotation of pieces
-    + Gravity to pull pieces down
-    + <a href="https://harddrop.com/wiki/Drop#Soft_drop">Soft drop</a>
-    + <a href="https://harddrop.com/wiki/Drop#Hard_drop">Hard drop</a>
-* <a href="https://harddrop.com/wiki/SRS">SRS</a> style rotation
-* <a href="https://harddrop.com/wiki/Random_Generator">Random bag</a> based piece randomization
-* Hold Piece
-* Ghost piece
-* Scoring system
-* Level system (difficulty increase over time)
+## 初期実装
 
-
-    
-## Initial implementation
-
-    During the first weekend, I managed to implement most of the basic features.
-
+最初の週末に、ほとんどの基本的な機能を実装することができました。
 
 <figure>
     <img  src="/img/notris-old.png" class="figure-img img-fluid rounded center " alt="">
     <figcaption class="figure-caption">The original version</figcaption>
 </figure>
-
-## Visual overhaul
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae non nisi officiis maxime enim necessitatibus, dolores, amet id ipsum iusto voluptates vero, recusandae molestiae! Distinctio, nemo modi? Enim, fugiat explicabo.
