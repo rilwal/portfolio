@@ -3,8 +3,12 @@
 /* phones! */
 
 
-
-
+/* .project-overview tr,
+.project-overview thead
+ {
+    display: inline-flex;
+    flex-direction: column; 
+} */
 
 figure {
     width: 100% !important;
@@ -18,4 +22,8 @@ figure {
 
 .mobile-only {
     display: unset;
+}
+
+.desktop {
+    display: none;
 }

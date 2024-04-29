@@ -12,14 +12,14 @@
 
 
     
-    <div class="project-overview">
+    <div class="project-overview desktop">
         <table class="table table-borderless">
-            <thead>
+            <tr>
                 <th>{{ project_type_str }}</th>
                 <th>{{ credits_str }}</th>
                 <th>{{ tools_str }}</th>
                 <th>{{ duration_str }}</th>
-            </thead>
+            </tr>
             <tr>
                 <td>{{ project_type }}</td>
                 <td><ul>{% for credit in credits %} <li><strong>{{ credit.what }}:</strong> {{ credit.who }}</li> {% endfor %} </ul> </td>
@@ -29,8 +29,27 @@
         </table>
     </div>
 
+    
+    <div class="project-overview mobile-only">
+        <table class="table table-borderless">
+            <tr>
+                <th>{{ project_type_str }}</th><td>{{ project_type }}</td>
+            </tr>
+            <tr>
+                <th>{{ credits_str }}</th><td><ul>{% for credit in credits %} <li><strong>{{ credit.what }}:</strong> {{ credit.who }}</li> {% endfor %} </ul> </td>
+            </tr>
+            <tr>
+                <th>{{ tools_str }}</th><td><ul>{% for tool in tools %} <li>{{ tool }} {% endfor %}</ul> </td>
+            </tr>
+            <tr>
+                <th>{{ duration_str }}</th><td>{{ duration }}</td>
+            </tr>
+
+        </table>
+    </div>
+
     <div class="outline">
-        <h2 class="mobile-only">Table of Contents</h2>
+        <h2 class="vertical-toc">Table of Contents</h2>
         <nav id="project-nav">
             <ul>
             <li><a href="#overview">Overview</a>

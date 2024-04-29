@@ -19,7 +19,7 @@
     <link rel="stylesheet"  href="/css/desktop.css" media="print" onload="this.media='(min-width: 1000px)'; this.onload=null;">
 
 </head>
-<body >
+<body>
     <div class="alert" role="alert">
         <span lang="en">This page is a work in progress!</span>
         <span lang="ja">このページは作成中です！</span>
@@ -30,7 +30,7 @@
     </span>
 
     <div class="hero">
-            
+        
         <img class="me" src="/img/rirekishophoto.webp" alt="Me">
 
         <div class="leader">
@@ -52,8 +52,9 @@
 
     </div>
 
+ 
     <!-- For absolute positioning -->
-    <div id="moving-container" style="position: relative; width: 100vw;"> 
+    <div id="moving-container" style="position: relative; width: 100vw; background-color: white;"> 
         <div id="projects" class="projects">
             {%- for project in collections.project -%}
             <div class="project" data-name="{{ project.data.slug }}" lang="{{project.data.lang}}">
@@ -257,6 +258,7 @@
 
                 });
             }
+
 
             const go_home = (animate) => {
                 document.body.classList.add("transition");

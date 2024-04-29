@@ -11,7 +11,7 @@ tools: ['C++', 'OpenGL']
 duration: 1 month+ (WIP)
 
 description: A 3D renderer using C++ and OpenGL with PBR support. It can draw many objects with very few draw calls.
-categories: ["C++", "OpenGL"]
+categories: ["C++", "GL"]
 ---
 
 ## Idea

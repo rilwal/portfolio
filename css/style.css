@@ -6,7 +6,7 @@
 }
 
 p {
-    margin-bottom: .5em;
+    margin-bottom: .8lh;
 }
 
 h2,h3,h4,h5,h6 {
@@ -14,16 +14,11 @@ h2,h3,h4,h5,h6 {
 }
 
 
-
-
-
 .project-overview {
     display: block;
     overflow: auto;
     width: 100%;
 }
-
-
 
 
 
@@ -37,6 +32,7 @@ body.transition #moving-container {
 }
 
 #content {
+    background-color: white;
     width: 100vw;
     position: absolute;
     top: 0px;
@@ -115,7 +111,9 @@ table td ul {
 
 /* On screens narrower than 1600px let's put a static nav at the top */
 
-
+.outline {
+    margin-bottom: 2em;
+}
 
 
 
@@ -133,10 +131,6 @@ table td ul {
     transition: transform .2s linear;
 }
 
-.outline nav a.active {
-    transform: translateX(-1em) ;
-    font-weight: 600;
-}
 
 
 figure img,

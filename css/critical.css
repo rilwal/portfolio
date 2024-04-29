@@ -31,6 +31,26 @@
 }
 
 
+#about-me-button {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    width: 3em;
+    padding-left: .5em;
+    padding-right: .5em;
+}
+#about-me-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+#about-me-button img {
+    display: inline-block;
+    vertical-align: middle;
+
+}
 
 
 .alert {
@@ -111,9 +131,6 @@ body:not(.ja) [lang="ja"] {
 }
 
 
-html {
-    font-size: 20px;
-}
 
 body {
     margin: 0px;
@@ -172,13 +189,17 @@ body {
     color: #ffffff;
     text-align: center;
     vertical-align: middle;
-    font-size: 0.8em;
+    font-size: .8rem;
+    padding-top: .75lh;
+    padding-bottom: .75lh;
 
     display: inline-block;
     background-color: rgba(0, 0, 0, .8);
-    border-radius: 3.5em;
-    width: 3.5em;
-    height: 3.5em;
+    border-radius: 100%;
+    width: 2.5lh;
+    height: 2.5lh;
+
+    margin-left: 4px;
 
     font-weight: bold;
 
@@ -186,8 +207,8 @@ body {
 }
 
 .project .tags .tag p {
-    margin-top: revert;
-    margin-bottom: revert;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 
